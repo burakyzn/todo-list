@@ -1,0 +1,13 @@
+.kutu{
+    border: 1px solid black;
+    margin : 30px;
+    padding : 30px;
+}
+
+h1{
+    text-align: center;
+}
+
+.todos{
+    margin: 10px;
+}
