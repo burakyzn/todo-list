@@ -1,78 +1,73 @@
-let todolistesi = document.querySelector('#todo-listem');
+let myTodoList = document.querySelector('#todo-list');
 
-todolistesi.addEventListener("click", function(event){
+myTodoList.addEventListener("click", function(event){
 
     if(event.originalTarget.className == 'fa fa-remove'){
-        console.log('dogru');
-        console.log(event.target.parentElement.parentElement);
-
-            todolistesi.removeChild(event.target.parentElement.parentElement);
+        // console.log('dogru');
+        // console.log(event.target.parentElement.parentElement);
+        myTodoList.removeChild(event.target.parentElement.parentElement);
         
-        let todolar;
+        let todos;
 
-        if(localStorage.getItem("todolar") != null){
-            todolar = JSON.parse(localStorage.getItem("todolar"));
+        if(localStorage.getItem("todos") != null){
+            todos = JSON.parse(localStorage.getItem("todos"));
 
             localStorage.clear();
 
-            let index = todolar.indexOf(event.target.parentElement.parentElement.textContent);
+            let index = todos.indexOf(event.target.parentElement.parentElement.textContent);
             if (index !== -1)
-            todolar.splice(index, 1);
+            todos.splice(index, 1);
             
-            if(todolar.length == 0)
+            if(todos.length == 0)
             localStorage.clear();
         
-            localStorage.setItem("todolar", JSON.stringify(todolar));
+            localStorage.setItem("todos", JSON.stringify(todos));
         }      
     }
 
 })
 
 
-let todolariCek = function () {
-    console.log("Gorevler cekiliyor.");
-    let todolar;
+let getTodos = function () {
+    // console.log("Gorevler cekiliyor.");
+    let todos;
+    const todoList = document.querySelector('#todo-list');
+    todos = JSON.parse(localStorage.getItem("todos"));
 
-    const todoList = document.querySelector('#todo-listem');
-
-    todolar = JSON.parse(localStorage.getItem("todolar"));
-
-    if(todolar != null){
-        console.log(todolar);
-        for (let i = 0; i < todolar.length;i++){
-            const yeniTodo = document.createElement('li');
-            yeniTodo.className = 'list-group-item d-flex justify-content-between todos';
-            yeniTodo.appendChild(document.createTextNode(todolar[i]));
-            yeniTodo.innerHTML += '<a href = "#" class ="delete-item"><i class="fa fa-remove"></i></a>';
-            yeniTodo.id = "todo" + todoList.childElementCount;
-            todoList.appendChild(yeniTodo);
+    if(todos != null){
+        console.log(todos);
+        for (let i = 0; i < todos.length;i++){
+            const newTodo = document.createElement('li');
+            newTodo.className = 'list-group-item d-flex justify-content-between todos';
+            newTodo.appendChild(document.createTextNode(todos[i]));
+            newTodo.innerHTML += '<a href = "#" class ="delete-item"><i class="fa fa-remove"></i></a>';
+            newTodo.id = "todo" + todoList.childElementCount;
+            todoList.appendChild(newTodo);
         }
     }
 }
 
-let todoEkle = function(){
-    console.log("Gorev ekleniyor.");
+let addTodo = function(){
+    // console.log("Gorev ekleniyor.");
 
-    let todolar;
+    let todos;
+    const todoName = document.querySelector('#todoName').value;
+    const todoList = document.querySelector('#todo-list');
 
-    const todoAd = document.querySelector('#todoName').value;
-    const todoList = document.querySelector('#todo-listem');
+    const newTodo = document.createElement('li');
+    newTodo.className = 'list-group-item d-flex justify-content-between todos';
+    newTodo.appendChild(document.createTextNode(todoName));
+    newTodo.innerHTML += '<a href = "#" class ="delete-item"><i class="fa fa-remove"></i></a>';
+    newTodo.id = "todo" + todoList.childElementCount;
+    todoList.appendChild(newTodo);
 
-    const yeniTodo = document.createElement('li');
-    yeniTodo.className = 'list-group-item d-flex justify-content-between todos';
-    yeniTodo.appendChild(document.createTextNode(todoAd));
-    yeniTodo.innerHTML += '<a href = "#" class ="delete-item"><i class="fa fa-remove"></i></a>';
-    yeniTodo.id = "todo" + todoList.childElementCount;
-    todoList.appendChild(yeniTodo);
-
-    if(localStorage.getItem("todolar") == null){
-        todolar = [];
+    if(localStorage.getItem("todos") == null){
+        todos = [];
     } else {
-        todolar = JSON.parse(localStorage.getItem("todolar"));
+        todos = JSON.parse(localStorage.getItem("todos"));
     }
 
-    todolar.push(yeniTodo.textContent);
+    todos.push(newTodo.textContent);
 
-    localStorage.setItem("todolar", JSON.stringify(todolar));
+    localStorage.setItem("todos", JSON.stringify(todos));
 }
-
