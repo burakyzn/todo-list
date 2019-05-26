@@ -7,8 +7,10 @@ Simple to-do list project. You can store your to-do list in your browser.
 - [x] Countdown
 - [ ] Drag & Drop
 
-# [Demo](https://burakyzn.github.io/demo/todolist/index.html)
-
 # Image
 ![todoListImage](https://user-images.githubusercontent.com/44683436/58385422-e14c4600-7ff8-11e9-952f-44e2b4f7317e.png)
+
+# [Demo](https://burakyzn.github.io/demo/todolist/index.html)
+
+
 
