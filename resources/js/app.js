@@ -13,7 +13,7 @@ function getTodos() {
             const newTodo = document.createElement('div');
             newTodo.className = 'col-lg-3 card-col';
             newTodo.innerHTML += '<div class="card" style="width: 18rem;"><div class="card-img-top card-top">' + day + ' Day' +
-            '<div class="card-body"><p class="card-text card-main">'+ todos[i].todo_name +'</p></div></div>';
+            '<div class="card-body"><p class="card-text card-main">'+ todos[i].todo_name +'</p><input type="button" id="btnDelete" class="btn btn-primary" value="Delete"></div></div>';
             newTodo.id = "todo" + todoList.childElementCount;
             todoList.appendChild(newTodo);
         }
@@ -56,7 +56,6 @@ function calculateTime(day,month,year){
 }
 
 function addTodo(){
-    // console.log("Gorev ekleniyor.");
     const todoName = document.querySelector('#todoName').value;
     const todoDay = document.querySelector('#todoDay').value;
     const todoMonth = document.querySelector('#todoMonth').value;
@@ -67,9 +66,35 @@ function addTodo(){
     const newTodo = document.createElement('div');
     newTodo.className = 'col-lg-3 card-col';
     newTodo.innerHTML += '<div class="card" style="width: 18rem;"><div class="card-img-top card-top">' + day + ' Day' +
-    '<div class="card-body"><p class="card-text card-main">'+ todoName +'</p></div></div>';
+    '<div class="card-body"><p class="card-text card-main">'+ todoName +'</p><input type="button" id="btnDelete" class="btn btn-primary" value="Delete"></div></div>';
     newTodo.id = "todo" + todoList.childElementCount;
     todoList.appendChild(newTodo);
 
     addTodoToLocal(todoName, todoDay, todoMonth, todoYear);
 }
+
+todoList.addEventListener("click", function(event){
+
+    console.log(event.target);
+
+    if(event.target.id= 'btnDelete' && event.target.className != 'card-text card-main'){
+        todoList.removeChild(event.target.parentElement.parentElement.parentElement.parentElement);
+
+        if (localStorage.getItem("todos") != null) {
+            let todos = JSON.parse(localStorage.getItem("todos"));
+            localStorage.clear();
+
+            for (var i = 0 ; i < todos.length; i++){
+                if(todos[i].todo_name == event.target.parentElement.firstChild.textContent){
+                    todos.splice(i,1);
+                    break;
+                }
+            }
+
+            if (todos.length == 0)
+                 localStorage.clear();
+
+            localStorage.setItem("todos", JSON.stringify(todos));
+        }
+    }
+})
