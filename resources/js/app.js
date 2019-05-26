@@ -15,6 +15,25 @@ function addTodo(){
     
 }
 
+function getTodos() {
+    console.log("Gorevler cekiliyor.");
+    let todos;
+    const todoList = document.querySelector('#todo-list');
+    todos = JSON.parse(localStorage.getItem("todos"));
+
+    if(todos != null){
+        console.log(todos);
+        for (let i = 0; i < todos.length;i++){
+            const newTodo = document.createElement('div');
+            newTodo.className = 'col-lg-3 card-col';
+            newTodo.innerHTML += '<div class="card" style="width: 18rem;"><div class="card-img-top card-top">' + todos[i].todo_day +
+            '<div class="card-body"><p class="card-text card-main">'+ todos[i].todo_name +'</p></div></div>';
+            newTodo.id = "todo" + todoList.childElementCount;
+            todoList.appendChild(newTodo);
+        }
+    }
+}
+
 function addTodoToLocal(todoName, todoDay){
     let todos;
 
