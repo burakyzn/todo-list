@@ -1,12 +1,23 @@
 const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const years = ['2019','2020','2021','2022','2023','2024','2025'];
 const todoMonthSelect = document.querySelector('#todoMonth');
+const todoYearSelect = document.querySelector('#todoYear');
 const todoDaySelect = document.querySelector('#todoDay');
+const todoList = document.querySelector('#todo-list');
 
-for(var i=0;i<months.length;i++){
+var this_month = new Date().getMonth();
+for(var i = this_month; i<months.length; i++){
     var newTempMonth = document.createElement('option');
-    newTempMonth.value = i+1;
+    newTempMonth.value = i;
     newTempMonth.innerHTML = months[i];
     todoMonthSelect.appendChild(newTempMonth);
+}
+
+for(var i = 0; i<years.length; i++){
+    var newTempYear = document.createElement('option');
+    newTempYear.value = years[i];
+    newTempYear.innerHTML = years[i];
+    todoYearSelect.appendChild(newTempYear);
 }
 
 for(var i = 0; i<31; i++){
@@ -16,14 +27,11 @@ for(var i = 0; i<31; i++){
     todoDaySelect.appendChild(newTempDay);
 }
 
-const todoList = document.querySelector('#todo-list');
-
 function getTodos() {
     let todos;
     todos = JSON.parse(localStorage.getItem("todos"));
 
     if(todos != null){
-        console.log(todos);
         for (let i = 0; i < todos.length;i++){
 
             var day = calculateTime(todos[i].todo_day,todos[i].todo_month,todos[i].todo_year);
@@ -79,8 +87,9 @@ function addTodo(){
     const todoMonth = document.querySelector('#todoMonth').value;
     const todoYear = document.querySelector('#todoYear').value;
 
-
-    console.log(todoMonth);
+    console.log('todo day' + todoDay);
+    console.log('todo month' + todoMonth);
+    console.log('todo year' + todoYear);
     var day = calculateTime(todoDay, todoMonth, todoYear);
 
     const newTodo = document.createElement('div');
@@ -94,8 +103,6 @@ function addTodo(){
 }
 
 todoList.addEventListener("click", function(event){
-
-    console.log(event.target);
 
     if(event.target.id= 'btnDelete' && event.target.className != 'card-text card-main'){
         todoList.removeChild(event.target.parentElement.parentElement.parentElement.parentElement);
