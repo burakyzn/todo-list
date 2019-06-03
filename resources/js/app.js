@@ -1,3 +1,15 @@
+const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+var todoMonthSelect = document.querySelector('#todoMonth');
+months.forEach(function(item,key){
+    //console.log(key,item);
+    var newMonth = document.createElement('option');
+    newMonth.innerHTML = '<option value="'+(key+1)+'">'+item+'</option>';
+    todoMonthSelect.appendChild(newMonth);
+})
+
+
+
 const todoList = document.querySelector('#todo-list');
 
 function getTodos() {
