@@ -1,14 +1,13 @@
 const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
-var todoMonthSelect = document.querySelector('#todoMonth');
-months.forEach(function(item,key){
-    //console.log(key,item);
-    var newMonth = document.createElement('option');
-    newMonth.innerHTML = '<option value="'+(key+1)+'">'+item+'</option>';
-    todoMonthSelect.appendChild(newMonth);
-})
+const todoMonthSelect = document.querySelector('#todoMonth');
 
-
+for(var i=0;i<months.length;i++){
+    var newTempMonth = document.createElement('option');
+    newTempMonth.value = i+1;
+    newTempMonth.innerHTML = months[i];
+    todoMonthSelect.appendChild(newTempMonth);
+}
 
 const todoList = document.querySelector('#todo-list');
 
@@ -73,6 +72,8 @@ function addTodo(){
     const todoMonth = document.querySelector('#todoMonth').value;
     const todoYear = document.querySelector('#todoYear').value;
 
+
+    console.log(todoMonth);
     var day = calculateTime(todoDay, todoMonth, todoYear);
 
     const newTodo = document.createElement('div');
