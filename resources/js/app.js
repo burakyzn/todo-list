@@ -1,12 +1,19 @@
 const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-
 const todoMonthSelect = document.querySelector('#todoMonth');
+const todoDaySelect = document.querySelector('#todoDay');
 
 for(var i=0;i<months.length;i++){
     var newTempMonth = document.createElement('option');
     newTempMonth.value = i+1;
     newTempMonth.innerHTML = months[i];
     todoMonthSelect.appendChild(newTempMonth);
+}
+
+for(var i = 0; i<31; i++){
+    var newTempDay = document.createElement('option');
+    newTempDay.value = i+1;
+    newTempDay.innerHTML = i+1;
+    todoDaySelect.appendChild(newTempDay);
 }
 
 const todoList = document.querySelector('#todo-list');
